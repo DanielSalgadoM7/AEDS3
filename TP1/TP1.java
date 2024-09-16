@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import codigo.Arquivo;
 import codigo.Tarefa;
 
-class Principal {
+class TP1 {
 
   public static void main(String args[]) {
 
