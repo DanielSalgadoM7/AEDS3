@@ -1,6 +1,5 @@
 //Estrutura de Tarefas feita por André Mendes, Caio Gomes e Daniel Salgado
 
-//Tudo pronto
 package codigo;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
