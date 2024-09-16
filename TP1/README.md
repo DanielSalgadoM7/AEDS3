@@ -10,7 +10,7 @@ A maior parte das classes criadas, juntamente de seus métodos, foram feitos em 
 
 - Classe de Tarefas - cria a estrutura de tarefas que será executada no código principal, neste caso, denominada de TP1.
 
-- Classe de Arquivo - possui os 4 métodos do CRUD, além do método de criação do arquivo que receberá os dados e um método de getPosicao que tem como objetivo guardar a posição das lápides de cada objeto excluído dentro de um arquivo adicional.
+- Classe de Arquivo - possui os 4 métodos do CRUD, além do método de criação do arquivo que receberá os dados e um método de getPosicao que tem como objetivo guardar a posição do último elemento visitado e verificar se tem espaço nas posições existentes.
 
 - Classe HashExtensível - implementada juntamente do professor Marcos Kutova.
 
