@@ -4,7 +4,6 @@ import java.io.RandomAccessFile;
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
-
 public class Arquivo<T extends Registro> {
 
   protected RandomAccessFile arquivo;
@@ -12,8 +11,8 @@ public class Arquivo<T extends Registro> {
   protected Constructor<T> construtor;
   final protected int TAM_CABECALHO = 4;
   protected HashExtensivel<ParIDEndereco> indiceDireto;
-  //lista de endereços excluidos
-  protected ArrayList< Long > Registros = new ArrayList<>();
+  //lista de endereços excluídos
+  protected ArrayList<Long> Registros = new ArrayList<>();
 
   public Arquivo(String na, Constructor<T> c) throws Exception {
     this.nomeEntidade = na;
@@ -38,11 +37,10 @@ public class Arquivo<T extends Registro> {
     obj.setID(ultimoID);
     byte[] ba = obj.toByteArray();
     short tam = (short) ba.length;
-    arquivo.seek(getPosicao(tam));
+    arquivo.seek(getPosicao(tam)); //reutiliza lápides ou escreve no final do arquivo
     long endereco = arquivo.getFilePointer();
-    arquivo.writeByte(' '); // lápide
+    arquivo.writeByte(' '); //lápide
     arquivo.writeShort(tam);
-
     arquivo.write(ba);
     indiceDireto.create(new ParIDEndereco(obj.getID(), endereco));
     return obj.getID();
@@ -56,7 +54,7 @@ public class Arquivo<T extends Registro> {
     ParIDEndereco pie = indiceDireto.read(id);
     long endereco = pie != null ? pie.getEndereco() : -1;
     if (endereco != -1) {
-      arquivo.seek(endereco + 1); // pula o lápide também
+      arquivo.seek(endereco + 1); //pula o lápide também
       tam = arquivo.readShort();
       ba = new byte[tam];
       arquivo.read(ba);
@@ -70,9 +68,9 @@ public class Arquivo<T extends Registro> {
     ParIDEndereco pie = indiceDireto.read(id);
     long endereco = pie != null ? pie.getEndereco() : -1;
     if (endereco != -1) {
-      Registros.add(endereco);//Adiciona o endereço na lista
+      Registros.add(endereco); //adiciona o endereço na lista
       arquivo.seek(endereco);
-      arquivo.writeByte('*');
+      arquivo.writeByte('*'); //marca como excluído
       indiceDireto.delete(id);
       return true;
     } else
@@ -87,21 +85,21 @@ public class Arquivo<T extends Registro> {
     long endereco = pie != null ? pie.getEndereco() : -1;
 
     if (endereco != -1) {
-      arquivo.seek(endereco + 1); // pula o campo lápide
+      arquivo.seek(endereco + 1); //pula o campo lápide
       tam = arquivo.readShort();
       ba = new byte[tam];
       arquivo.read(ba);
       obj.fromByteArray(ba);
       ba2 = novoObj.toByteArray();
       tam2 = (short) ba2.length;
-      if (tam2 <= tam) { // Se o tamanho for igual ou menor, o registro fica na mesma posição
+      if (tam2 <= tam) { //se o tamanho for igual ou menor, o registro fica na mesma posição
         arquivo.seek(endereco + 1 + 2);
         arquivo.write(ba2);
       } else {
         arquivo.seek(endereco);
-        Registros.add(endereco); // Adiciona o endereço na lista
+        Registros.add(endereco); //adiciona o endereço na lista
         arquivo.writeByte('*');
-        arquivo.seek(getPosicao(tam2)); // Procura um 
+        arquivo.seek(getPosicao(tam2)); //procura um espaço adequado com base na comparação feita
         long endereco2 = arquivo.getFilePointer();
         arquivo.writeByte(' ');
         arquivo.writeShort(tam2);
@@ -113,27 +111,28 @@ public class Arquivo<T extends Registro> {
     return false;
   }
 
-  public long getPosicao(int tam) throws Exception{
-    long resp = arquivo.length();
-    int menorReg = -1; // tamanho do menor registro, inicializado com -1 para indicar que ainda não foi encontrado
-    for(int i =0;i< Registros.size();i++){
-      
-      arquivo.seek(Registros.get(i) + 1);
-      int tamR = arquivo.readShort(); // tamanho do registro atual
-      
-      
-      if(menorReg == -1){ // enquanto não achar um registro adequado cai so nesse if
+  public long getPosicao(int tam) throws Exception {
+    long posicao = arquivo.length();
+    int menorReg = -1; //tamanho do menor registro encontrado
+    for (int i = 0; i < Registros.size(); i++) {
+
+      arquivo.seek(Registros.get(i) + 1); //pula o lápide
+      int tamR = arquivo.readShort(); //lê o tamanho do registro atual
+
+      if (menorReg == -1) {
+        //compara os dois tamanhos e se der certo, pega a posição do primeiro registro adequado e atualiza o tamanho do menor registro
         if (tamR >= tam) {
-          resp = Registros.get(i);
-          menorReg = tamR; // atribui para o menor registro quando encontrado
+          posicao = Registros.get(i);
+          menorReg = tamR; 
         }
-        
-      } else if(tamR >= tam && tamR < menorReg){ // se o tamanho do registro atual for menor atualiza as variaveis
-        resp = Registros.get(i);
-          menorReg = tamR;
+      } else if (tamR >= tam && tamR < menorReg) { // Se o registro atual for menor que o anterior
+        posicao = Registros.get(i);
+        menorReg = tamR;
       }
     }
-    return resp;
+
+
+    return posicao;
   }
 
   public void close() throws Exception {
