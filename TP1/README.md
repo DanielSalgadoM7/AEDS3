@@ -2,11 +2,11 @@ Trabalho Prático 1 - AEDs3
 
 Grupo: André Mendes, Caio Gomes e Daniel Salgado
 
-O trabalho prático 1 de AEDs 3 envolve a manipulação de dados em um registro de tarefas, podendo fazer as 4 principais funcionalidades de um CRUD(create, read, update e delete).
+O trabalho prático 1 de AEDs 3 envolve a manipulação de dados em um registro de tarefas, podendo fazer as 4 principais funcionalidades de um CRUD (create, read, update e delete).
 
 A maior parte das classes criadas, juntamente de seus métodos, foram feitos em sala, juntamente do professor:
 
-- Classe TP1(main) - cria as instâncias de tarefas e chama os métodos do CRUD para teste e amostra ao usuário.
+- Classe TP1(main) - cria as instâncias de tarefas e chama os métodos do CRUD para teste, mostrando o resultado ao usuário.
 
 - Classe de Tarefas - cria a estrutura de tarefas que será executada no código principal, neste caso, denominada de TP1.
 
