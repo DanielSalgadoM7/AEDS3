@@ -1,4 +1,5 @@
 package menus;
+
 // -------------------------------------------------------
 /*A classe MenuTarefas oferece ao usuário a oportunidade de verificar as tarefas, passando pelo processo de leitura dos dados
  fazendo com que o usuário consiga buscar, incluir, alterar e excluir novas tarefas */
@@ -30,9 +31,9 @@ public class MenuTarefas {
       e.printStackTrace();
     }
   }
-  
+
   // ---------------------
-  // LE_Tarefa
+  // método de ler as tarefas
   // ---------------------
   public Tarefa leTarefa() throws Exception {
 
@@ -46,41 +47,41 @@ public class MenuTarefas {
     System.out.print("Data Conclusão - Modelo dd/MM/yyyy: ");
     String dataConc = console.nextLine();
 
-    //conversor data de criação
+    // conversor data de criação
     if (dataCri.length() > 0) {
-            try {
-                // Definindo o formato esperado para a data
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                
-                // Convertendo a string para LocalDate
-                dataCriacao = LocalDate.parse(dataCri, formatter);
-                
-            } catch (DateTimeParseException e) {
-                // Se a string não for uma data válida
-                dataCriacao = null; // ou outra lógica para datas inválidas
-            }
-        } else {
-            dataCriacao = null; // ou atribua uma data padrão
+      try {
+        // Definindo o formato esperado para a data
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+        // Convertendo a string para LocalDate
+        dataCriacao = LocalDate.parse(dataCri, formatter);
+
+      } catch (DateTimeParseException e) {
+        // Se a string não for uma data válida
+        dataCriacao = null; // ou outra lógica para datas inválidas
+      }
+    } else {
+      dataCriacao = null; // ou atribua uma data padrão
     }
 
-    //conversor data de conclusão
+    // conversor data de conclusão
     if (dataConc.length() > 0) {
       try {
-          // Definindo o formato esperado para a data
-          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-          
-          // Convertendo a string para LocalDate
-          dataConclusao = LocalDate.parse(dataConc, formatter);
-          
-      } catch (DateTimeParseException e) {
-          // Se a string não for uma data válida
-          dataConclusao = null; // ou outra lógica para datas inválidas
-      }
-  } else {
-      dataConclusao = null; // ou atribua uma data padrão
-}
+        // Definindo o formato esperado para a data
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-    System.out.print("Status: ");  
+        // Convertendo a string para LocalDate
+        dataConclusao = LocalDate.parse(dataConc, formatter);
+
+      } catch (DateTimeParseException e) {
+        // Se a string não for uma data válida
+        dataConclusao = null; // ou outra lógica para datas inválidas
+      }
+    } else {
+      dataConclusao = null; // ou atribua uma data padrão
+    }
+
+    System.out.print("Status: ");
     String status = console.nextLine();
 
     System.out.print("Prioridade: ");
@@ -114,18 +115,22 @@ public class MenuTarefas {
   }
 
   // ---------------------
-  // Método de mostrar a tarefa
+  // método de mostrar as tarefas
   // ---------------------
   public void mostrarTarefas(Tarefa l) throws Exception {
     Categoria c = arqCategorias.read(l.getIdCategoria());
     String nomeCategoria = c == null ? "Categoria inválida" : c.getNome();
     System.out.println(
-            "\nNome: " + l.getNome() +
-            "\nCategoria: " + nomeCategoria);
+        "\nNome: " + l.getNome() +
+            "\nCategoria: " + nomeCategoria +
+            "\nData de Criação: " + l.getDataCriacao() +
+            "\nData de Conclusão: " + l.getDataConclusao() +
+            "\nStatus: " + l.getStatus() +
+            "\nPrioridade: " + l.getPrioridade());
   }
 
   // ---------------------
-  // Menu de Tarefas
+  // método que mostra a interface do menu de tarefas
   // ---------------------
   public void menu() {
 
@@ -184,7 +189,7 @@ public class MenuTarefas {
   }
 
   // ---------------------
-  // Método de incluir novas tarefas
+  // método de incluir novas tarefas
   // ---------------------
   public void incluirTarefa() {
 
@@ -200,7 +205,7 @@ public class MenuTarefas {
         else
           dadosCompletos = true;
       } while (!dadosCompletos);
-      
+
     } catch (Exception e) {
       System.out.println("Dados inválidos");
       e.printStackTrace();
@@ -227,36 +232,57 @@ public class MenuTarefas {
     }
 
     System.out.println("\nTarefa armazenada!");
-    try{  
-    
+    try {
+
       // Mostra a lista invertida após a inclusão
-    System.out.println("-----------------------------");
-    lista.print();
-    System.out.println("-----------------------------");
-    }catch (Exception e) {
-        System.out.println("Não foi possivel mostar a Lista invertida");
-        e.printStackTrace();
-        return;
+      System.out.println("-----------------------------");
+      lista.print();
+      System.out.println("-----------------------------");
+    } catch (Exception e) {
+      System.out.println("Não foi possivel mostar a Lista invertida");
+      e.printStackTrace();
+      return;
     }
-        
+
   }
 
   // ---------------------
-  // Método de buscar tarefas
+  // método de busca da tarefa selecionada
   // ---------------------
   public void buscarTarefa() {
-    String buscaNome;
     System.out.println("\n\n\nTarefas AEDS3");
     System.out.println("------------");
     System.out.println("\n> Início > Tarefas > Busca");
-    System.out.print("\nNome: ");
-    buscaNome = console.nextLine();
-    if (buscaNome.length() == 0)
-      return;
 
     try {
-      
-      arqTarefas.busca(buscaNome);
+      // Lista as tarefas
+      Tarefa[] tarefas = arqTarefas.readAll();
+      int i;
+      System.out.println("\nTarefas\n----------");
+      for (i = 0; i < tarefas.length; i++) {
+        System.out.println((i + 1) + ": " + tarefas[i].getNome());
+      }
+
+      // Lê o nome da tarefa
+      System.out.print("\nNome da tarefa a exibir: ");
+      String nomeTarefa = console.nextLine();
+
+      // Verifica se o nome foi digitado
+      if (nomeTarefa.length() == 0) {
+        System.out.println("Nenhum nome de tarefa fornecido!");
+        return;
+      }
+
+      // Busca a tarefa pelo nome
+      Tarefa tarefa = arqTarefas.readNome(nomeTarefa);
+      if (tarefa == null) {
+        System.out.println("Tarefa não encontrada!");
+        return;
+      }
+
+      // Mostra a tarefa encontrada
+      mostrarTarefas(tarefa);
+
     } catch (Exception e) {
       System.out.println("Erro no acesso ao arquivo");
       e.printStackTrace();
@@ -264,7 +290,7 @@ public class MenuTarefas {
   }
 
   // ---------------------
-  // Método de listar todas as tarefas
+  // método de listar todas as tarefas
   // ---------------------
   public void listarTarefas() {
     System.out.println("\n\n\nTarefas AEDS3");
@@ -272,47 +298,51 @@ public class MenuTarefas {
     System.out.println("\n> Início > Tarefas > Listar todas");
 
     try {
-        // Lista todas as tarefas
-        Tarefa[] tarefas = arqTarefas.readAll(); // Carrega todas as tarefas
-        if (tarefas.length == 0) {
-            System.out.println("Nenhuma tarefa cadastrada.");
-            return;
-        }
+      // Lista todas as tarefas
+      Tarefa[] tarefas = arqTarefas.readAll(); // Carrega todas as tarefas
+      if (tarefas.length == 0) {
+        System.out.println("Nenhuma tarefa cadastrada.");
+        return;
+      }
 
-        int i;
-        System.out.println("\nTarefas\n----------");
-        for (i = 0; i < tarefas.length; i++) {
-            System.out.println((i + 1) + ": " + tarefas[i].getNome());
-        }
+      int i;
+      System.out.println("\nTarefas\n----------");
+      for (i = 0; i < tarefas.length; i++) {
+        System.out.println((i + 1) + ": " + tarefas[i].getNome());
+      }
 
-        System.out.println("\nDetalhes das Tarefas:\n");
+      System.out.println("\nDetalhes das Tarefas:\n");
 
-        // Exibe detalhes de cada tarefa
-        for (Tarefa tarefa : tarefas) {
-            mostrarTarefas(tarefa); // Chama o método que mostra detalhes da tarefa
-        }
+      // Exibe detalhes de cada tarefa
+      for (Tarefa tarefa : tarefas) {
+        mostrarTarefas(tarefa); // Chama o método que mostra detalhes da tarefa
+      }
 
     } catch (Exception e) {
-        System.out.println("Erro ao listar tarefas.");
-        e.printStackTrace();
+      System.out.println("Erro ao listar tarefas.");
+      e.printStackTrace();
     }
-}
-
-
+  }
 
   // ---------------------
-  // Método de alterar tarefas
+  // método de alterar a tarefa selecionada
   // ---------------------
   public void alterarTarefa() {
     System.out.println("\n\n\nTarefas AEDS3");
     System.out.println("------------");
     System.out.println("\n> Início > Tarefas > Alteração");
-    System.out.print("\nNome: ");
-    String nome = console.nextLine();
-    if (nome.length() == 0)
-      return;
 
     try {
+      Tarefa[] tarefas = arqTarefas.readAll();
+      int i;
+      System.out.println("\nTarefas\n----------");
+      for (i = 0; i < tarefas.length; i++) {
+        System.out.println((i + 1) + ": " + tarefas[i].getNome());
+      }
+
+      System.out.print("\nNome: ");
+      String nome = console.nextLine();
+
       Tarefa Tarefa = arqTarefas.readNome(nome);
       if (Tarefa == null) {
         System.out.println("Tarefa não encontrada.");
@@ -328,21 +358,28 @@ public class MenuTarefas {
         System.out.println("Dados inválidos");
         return;
       }
-      if (Tarefa2.getNome().length() > 0)
-        Tarefa.setNome(Tarefa2.getNome());
+
+      // comparação do novo e antigo
       if (Tarefa2.getNome().length() > 0)
         Tarefa.setNome(Tarefa2.getNome());
       if (Tarefa2.getIdCategoria() > 0)
         Tarefa.setIdCategoria(Tarefa2.getIdCategoria());
+      if (Tarefa2.getDataCriacao() != null)
+        Tarefa.setDataCriacao(Tarefa2.getDataCriacao());
+      if (Tarefa2.getDataConclusao() != null)
+        Tarefa.setDataConclusao(Tarefa2.getDataConclusao());
+      if (Tarefa2.getStatus().length() > 0)
+        Tarefa.setStatus(Tarefa2.getStatus());
+      if (Tarefa2.getPrioridade().length() > 0)
+        Tarefa.setPrioridade(Tarefa2.getPrioridade());
 
       System.out.print("Confirma alteração da tarefa (S/N)? ");
       char resp = console.nextLine().charAt(0);
       if (resp == 'S' || resp == 's') {
-        if (arqTarefas.update(Tarefa)){
+        if (arqTarefas.update(Tarefa)) {
           System.out.println("Tarefa alterada!");
           lista.print();
-        }
-        else
+        } else
           System.out.println("Erro na alteração da tarefa!");
       } else
         System.out.println("Alteração cancelada!");
@@ -353,43 +390,58 @@ public class MenuTarefas {
   }
 
   // ---------------------
-  // Método de excluir tarefas
+  // método para mostrar as tarefas
+  // ---------------------
+  public void mostraTarefa(Tarefa t) throws Exception {
+    System.out.println("\nNome: " + t.getNome());
+  }
+
+  // ---------------------
+  // método de excluir a tarefa selecionada
   // ---------------------
   public void excluirTarefa() {
     System.out.println("\n\n\nTarefas AEDS3");
     System.out.println("------------");
     System.out.println("\n> Início > Tarefas > Exclusão");
-    System.out.print("\nNome: ");
-    String nome = console.nextLine();
-    if (nome.length() == 0)
-      return;
 
     try {
-      Tarefa Tarefa = arqTarefas.readNome(nome);
-      if (Tarefa == null) {
-        System.out.println("Tarefa não encontrada.");
+      // Lista as tarefas
+      Tarefa[] tarefas = arqTarefas.readAll();
+      int i;
+      System.out.println("\nTarefas\n----------");
+      for (i = 0; i < tarefas.length; i++) {
+        System.out.println((i + 1) + ": " + tarefas[i].getNome());
+      }
+
+      // Lê o nome da tarefa
+      System.out.print("\nNome da tarefa a excluir: ");
+      String nomeTarefa = console.nextLine();
+
+      // Busca a tarefa pelo nome
+      Tarefa tarefa = arqTarefas.readNome(nomeTarefa);
+      if (tarefa == null) {
+        System.out.println("Tarefa não encontrada!");
         return;
       }
-      mostrarTarefas(Tarefa);
 
+      // Mostra a tarefa encontrada
+      mostraTarefa(tarefa);
+
+      // Confirma a exclusão
       System.out.print("Confirma exclusão da tarefa (S/N)? ");
       char resp = console.nextLine().charAt(0);
       if (resp == 'S' || resp == 's') {
-        if (arqTarefas.delete(Tarefa.getID())){
+        if (arqTarefas.delete(tarefa.getID())) {
           System.out.println("Tarefa excluída!");
-          System.out.println("-----------------------------");
-          lista.print();
-          System.out.println("-----------------------------");
-        }
-        
-        else
+        } else {
           System.out.println("Erro na exclusão da tarefa!");
-      } else
+        }
+      } else {
         System.out.println("Exclusão cancelada!");
+      }
     } catch (Exception e) {
       System.out.println("Erro no acesso ao arquivo");
       e.printStackTrace();
     }
   }
-
 }

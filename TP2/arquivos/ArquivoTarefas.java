@@ -15,7 +15,6 @@ public class ArquivoTarefas extends Arquivo<Tarefa> {
 
   HashExtensivel<ParNomeId> indiceIndiretoNome;
   ArvoreBMais<ParIntInt> relTarefasDaCategoria;
-  private List<Tarefa> tarefas;
 
   // Cria uma lista invertida
   ListaInvertida lista;
@@ -97,10 +96,10 @@ public class ArquivoTarefas extends Arquivo<Tarefa> {
   }
 
   public Tarefa readNome(String nome) throws Exception {
-    ParNomeId pii = indiceIndiretoNome.read(ParNomeId.hashNome(nome));
-    if (pii == null)
+    ParNomeId pni = indiceIndiretoNome.read(ParNomeId.hashNome(nome));
+    if (pni == null)
       return null;
-    int id = pii.getId();
+    int id = pni.getId();
     return super.read(id);
   }
 
@@ -193,13 +192,28 @@ public class ArquivoTarefas extends Arquivo<Tarefa> {
     }
 }
 
+  public Tarefa[] readAll() throws Exception {
+    arquivo.seek(TAM_CABECALHO);
+    byte lapide;
+    short tam;
+    byte[] b;
 
-  public Tarefa[] readAll() {
-    // Se a lista não foi inicializada, lance uma exceção ou retorne um array vazio
-    if (tarefas == null) {
-        return new Tarefa[0]; // Retorna um array vazio se a lista for null
+    Tarefa t;
+    ArrayList<Tarefa> tarefas = new ArrayList<>();
+    while (arquivo.getFilePointer() < arquivo.length()) {
+      lapide = arquivo.readByte();
+      tam = arquivo.readShort();
+      b = new byte[tam];
+      arquivo.read(b);
+      if (lapide != '*') {
+        t = new Tarefa(); // Cria uma nova instância a cada categoria
+        t.fromByteArray(b);
+        tarefas.add(t);
+      }
     }
-    return tarefas.toArray(new Tarefa[tarefas.size()]);
+    Collections.sort(tarefas);
+    Tarefa[] lista = (Tarefa[]) tarefas.toArray(new Tarefa[0]);
+    return lista;
   }
 
 

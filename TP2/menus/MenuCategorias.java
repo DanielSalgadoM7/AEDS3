@@ -1,13 +1,7 @@
 package menus;
 // -------------------------------------------------------
-// A classe MenuCategorias é responsável pela interação com
-// o usuário. É a partir dela, que o usuário inclui, 
-// altera, exclui e consulta as entidades cadastradas
-// no banco de dados.
-// 
-// Adicionalmente, a classe MenuCategorias oferece um método
-// LeCategoria() e outro MostraCategoria() que cuidam da entrada
-// e da saída de dados de categorias e das classes relacionadas.
+/*A classe MenuCategorias oferece ao usuário a oportunidade de verificar as categorias, passando pelo processo de leitura dos dados
+ fazendo com que o usuário consiga buscar, incluir, alterar e excluir novas categorias */
 // -------------------------------------------------------
 
 import java.util.ArrayList;
@@ -38,7 +32,7 @@ public class MenuCategorias {
   }
 
   // ---------------------
-  // LE_CATEGORIA
+  // método de ler as categorias
   // ---------------------
   public Categoria leCategoria() throws Exception {
 
@@ -53,14 +47,14 @@ public class MenuCategorias {
   }
 
   // ---------------------
-  // MOSTRA_CATEGORIA
+  // método para mostrar as categorias
   // ---------------------
   public void mostraCategoria(Categoria c) throws Exception {
     System.out.println("\nNome: " + c.getNome());
   }
 
   // ---------------------
-  // MENU_CATEGORIAS
+  // método que mostra a interface do menu de categorias
   // ---------------------
   public void menu() {
 
@@ -117,7 +111,7 @@ public class MenuCategorias {
   }
 
   // ---------------------
-  // INCLUIR_CATEGORIA
+  // método de incluir novas categorias
   // ---------------------
   public void incluirCategoria() {
 
@@ -156,7 +150,7 @@ public class MenuCategorias {
   }
 
   // ---------------------
-  // BUSCAR CATEGORIA
+  // método de busca da categoria selecionada
   // ---------------------
   public void buscarCategoria() {
     System.out.println("\n\n\nTarefas AEDS3");
@@ -173,7 +167,7 @@ public class MenuCategorias {
       }
 
       // Lê a categoria
-      System.out.print("\nCategoria a exibir: ");
+      System.out.print("\nID da categoria a exibir: ");
       int c;
       Categoria categoria;
       String sCategoria = console.nextLine();
@@ -196,7 +190,7 @@ public class MenuCategorias {
   }
 
   // ---------------------
-  // ALTERAR_CATEGORIA
+  // método de alterar a categoria selecionada
   // ---------------------
   public void alterarCategoria() {
     System.out.println("\n\n\nTarefas AEDS3");
@@ -213,7 +207,7 @@ public class MenuCategorias {
       }
 
       // Lê a categoria
-      System.out.print("\nCategoria a alterar: ");
+      System.out.print("\nID da categoria a alterar: ");
       int c;
       Categoria categoria;
       String sCategoria = console.nextLine();
@@ -229,7 +223,7 @@ public class MenuCategorias {
         return;
       mostraCategoria(categoria);
 
-      System.out.println("\nDigite os novos dados.\nDeixe em branco os que não desejar alterar.");
+      System.out.println("\nDigite o novo nome da categoria");
       Categoria categoria2;
       try {
         categoria2 = leCategoria();
@@ -256,7 +250,7 @@ public class MenuCategorias {
   }
 
   // ---------------------
-  // EXCLUIR_CATEGORIA
+  // método de excluir a categoria selecionada
   // ---------------------
   public void excluirCategoria() {
     System.out.println("\n\n\nTarefas AEDS3");
@@ -273,7 +267,7 @@ public class MenuCategorias {
       }
 
       // Lê a categoria
-      System.out.print("\nCategoria a excluir: ");
+      System.out.print("\nID da categoria a excluir: ");
       int c;
       Categoria categoria;
       String sCategoria = console.nextLine();
@@ -314,8 +308,8 @@ public class MenuCategorias {
     }
   }
 
-  // ---------------------
-  // MOSTRAR_TarefaS
+ // ---------------------
+  // método para mostrar as categorias
   // ---------------------
   public void mostrarCategorias() {
     System.out.println("\n\n\nTarefas AEDS3");
@@ -332,7 +326,7 @@ public class MenuCategorias {
       }
 
       // Lê a categoria
-      System.out.print("\nCategoria a exibir: ");
+      System.out.print("\nID da categoria a exibir: ");
       int c;
       Categoria categoria;
       String sCategoria = console.nextLine();
@@ -357,7 +351,7 @@ public class MenuCategorias {
         System.out.print("Tarefas: ");
         for (i = 0; i < lista.size(); i++) {
           Tarefa l = arqTarefas.read(lista.get(i).get2());
-          System.out.print("\n- " + l.getNome() + " - " + l.getIdCategoria());
+          System.out.print("\n- " + l.getNome());
         }
       }
 

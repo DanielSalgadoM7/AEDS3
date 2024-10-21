@@ -35,9 +35,6 @@ public class ArquivoCategorias extends Arquivo<Categoria> {
     Collections.sort(categorias);
     Categoria[] lista = (Categoria[]) categorias.toArray(new Categoria[0]);
     return lista;
-  }
-
-
-    
+  } 
 
 }
