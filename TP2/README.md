@@ -31,6 +31,6 @@ A experiência geral de realizar o TP foi tranquila pois o professor ajudou bast
 - É possível listar as tarefas de uma categoria? Sim, é possível verificar todas as tarefas de uma categoria.
 - A remoção de categorias checa se há alguma tarefa vinculada a ela? Sim, existe a checagem para verificar se a categoria está vazia antes de realizar a remoção.
 - A inclusão da categoria em uma tarefa se limita às categorias existentes? Sim, não foi possível criar novas categorias no momento da criação de novas tarefas.
-- O trabalho está funcionando corretamente? Não, os métodos buscarTarefas, listarTarefas, alterarTarefas, excluirTarefas.
+- O trabalho está funcionando corretamente? Não, os métodos buscarTarefas, alterarTarefas e excluirTarefas estão dando erro ao realizar as operações em tarefas com o nome já alterado anteriormente.
 - O trabalho está completo? Baseado nos pedidos feitos na aba "O que Fazer?", o trabalho está completo.
 - O trabalho é original e não a cópia de um trabalho de outro grupo? Sim, o trabalho é original.
