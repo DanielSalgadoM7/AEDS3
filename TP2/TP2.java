@@ -84,10 +84,10 @@ public class TP2 {
       arqCategorias.create(new Categoria("Trabalho Interdisiplinar IV"));
       
       //novas instâncias de tarefas
-      arqTarefas.create(new Tarefa("Lista de IA", LocalDate.of(2024, 10, 9), LocalDate.of(2024, 11, 9), "Feita", "Alta", 3));
-      arqTarefas.create(new Tarefa("Sprint3", LocalDate.of(2024, 10, 9), LocalDate.of(2024, 11, 9), "Feita", "Alta", 6));
-      arqTarefas.create(new Tarefa("Prova", LocalDate.of(2024, 10, 9), LocalDate.of(2024, 11, 9), "Feita", "Alta", 4));
-      arqTarefas.create(new Tarefa("Lista", LocalDate.of(2024, 10, 9), LocalDate.of(2024, 11, 9), "Feita", "Alta", 2));
+      arqTarefas.create(new Tarefa("Lista de IA", LocalDate.of(2024, 10, 9), LocalDate.of(2024, 11, 9), 1, 3, 3));
+      arqTarefas.create(new Tarefa("Sprint3", LocalDate.of(2024, 10, 9), LocalDate.of(2024, 11, 9), 2, 2, 6));
+      arqTarefas.create(new Tarefa("Prova", LocalDate.of(2024, 10, 9), LocalDate.of(2024, 11, 9), 3, 1, 4));
+      arqTarefas.create(new Tarefa("Lista", LocalDate.of(2024, 10, 9), LocalDate.of(2024, 11, 9), 1, 1, 2));
        
 
       arqTarefas.close();
