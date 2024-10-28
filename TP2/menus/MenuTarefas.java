@@ -81,11 +81,11 @@ public class MenuTarefas {
       dataConclusao = null; // ou atribua uma data padrão
     }
 
-    System.out.print("Status: ");
-    String status = console.nextLine();
+    System.out.print("Status (1 - Pendente, 2 - Em andamento, 3 - Concluída): ");
+    int status = Integer.parseInt(console.nextLine());
 
-    System.out.print("Prioridade: ");
-    String prioridade = console.nextLine();
+    System.out.print("Prioridade (1 - Baixa, 2 - Média, 3 - Alta): ");
+    int prioridade = Integer.parseInt(console.nextLine());
 
     // Lista as categorias
     Categoria[] categorias = arqCategorias.readAll();
@@ -125,8 +125,8 @@ public class MenuTarefas {
             "\nCategoria: " + nomeCategoria +
             "\nData de Criação: " + l.getDataCriacao() +
             "\nData de Conclusão: " + l.getDataConclusao() +
-            "\nStatus: " + l.getStatus() +
-            "\nPrioridade: " + l.getPrioridade());
+            "\nStatus: " + l.getStatusString() +
+            "\nPrioridade: " + l.getPrioridadeString());
   }
 
   // ---------------------
@@ -368,9 +368,9 @@ public class MenuTarefas {
         Tarefa.setDataCriacao(Tarefa2.getDataCriacao());
       if (Tarefa2.getDataConclusao() != null)
         Tarefa.setDataConclusao(Tarefa2.getDataConclusao());
-      if (Tarefa2.getStatus().length() > 0)
+      if (Tarefa2.getStatus() > 0)
         Tarefa.setStatus(Tarefa2.getStatus());
-      if (Tarefa2.getPrioridade().length() > 0)
+      if (Tarefa2.getPrioridade() > 0)
         Tarefa.setPrioridade(Tarefa2.getPrioridade());
 
       System.out.print("Confirma alteração da tarefa (S/N)? ");
