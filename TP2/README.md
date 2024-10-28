@@ -24,6 +24,9 @@ Novas classes:
 - MenuCategorias - sistema visual para o usuário poder realizar as ações do CRUD nas categorias.
 
 A experiência geral de realizar o TP foi tranquila pois o professor ajudou bastante nos códigos auxiliares que eram uma parte muito importante para a implementação de todos os requisitos. A operação mais desafiadora foi realizar o código para mostrar os arquivos salvos. As categorias foram salvas corretamente, mas a parte de tarefas, que também seria uma opção legal, demonstrou ser mais complicada para fazer.
+
+É necessário excluir cada caminho de dados, e assim que o código começar, utilizar da opção 8("Limpar caminho de dados") para carregar as estruturas de categorias normalmente.
+
 - O CRUD (com índice direto) de categorias foi implementado? Sim, o CRUD foi implementado.
 - Há um índice indireto de nomes para as categorias? Sim, existe o índice indireto de nomes para categorias.
 - O atributo de ID de categoria, como chave estrangeira, foi criado na classe Tarefa? Sim, o atributo ID como chave estrangeira foi criado na classe Tarefa.
