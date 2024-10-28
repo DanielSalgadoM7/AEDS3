@@ -16,19 +16,19 @@ public class Tarefa implements Registro {
   private String nome;
   private LocalDate dataCriacao;
   private LocalDate dataConclusao;
-  private String status;
-  private String prioridade;
+  private int status;
+  private int prioridade;
   private int idCategoria;
 
   public Tarefa() {
-    this(-1,"", LocalDate.now(), LocalDate.now(), "", "", -1);
+    this(-1,"", LocalDate.now(), LocalDate.now(), -1, -1, -1);
   }
 
-  public Tarefa(String n, LocalDate dcr, LocalDate dco, String s, String p, int idC) {
+  public Tarefa(String n, LocalDate dcr, LocalDate dco, int s, int p, int idC) {
     this(-1, n, dcr, dco, s, p, idC);
   }
 
-  public Tarefa(int id, String n, LocalDate dcr, LocalDate dco, String s, String p, int idC) {
+  public Tarefa(int id, String n, LocalDate dcr, LocalDate dco, int s, int p, int idC) {
     this.ID = id;
     this.nome = n;
     this.dataCriacao = dcr;
@@ -71,19 +71,19 @@ public class Tarefa implements Registro {
     return dataConclusao;
   }
 
-  public void setStatus(String status) {
+  public void setStatus(int status) {
     this.status = status;
   }
 
-  public String getStatus() {
+  public int getStatus() {
     return status;
   }
 
-  public void setPrioridade(String prioridade) {
+  public void setPrioridade(int prioridade) {
     this.prioridade = prioridade;
   }
 
-  public String getPrioridade() {
+  public int getPrioridade() {
     return prioridade;
   }
 
@@ -103,8 +103,8 @@ public class Tarefa implements Registro {
     dos.writeUTF(this.nome);
     dos.writeInt((int) this.dataCriacao.toEpochDay());
     dos.writeInt((int) this.dataConclusao.toEpochDay());
-    dos.writeUTF(this.status);
-    dos.writeUTF(this.prioridade);
+    dos.writeInt(this.status);
+    dos.writeInt(this.prioridade);
     dos.writeInt(this.idCategoria);
     return ba_out.toByteArray();
   }
@@ -117,8 +117,8 @@ public class Tarefa implements Registro {
     this.nome = dis.readUTF();
     this.dataCriacao = LocalDate.ofEpochDay(dis.readInt());
     this.dataConclusao = LocalDate.ofEpochDay(dis.readInt());
-    this.status = dis.readUTF();
-    this.prioridade = dis.readUTF();
+    this.status = dis.readInt();
+    this.prioridade = dis.readInt();
     this.idCategoria = dis.readInt();
   }
 
@@ -131,6 +131,32 @@ public class Tarefa implements Registro {
         "\nPrioridade da tarefa: " + this.prioridade +
         "\nCategoria: " + this.idCategoria;
   }
+
+  public String getStatusString (){
+    switch(status) {
+        case 1 : 
+          return "Pendente";
+        case 2 : 
+          return "Em andamento";
+        case 3:
+          return "Concluída";
+        default: 
+          return "erro";
+    } 
+  } 
+
+  public String getPrioridadeString () {
+    switch(prioridade){
+      case 1: 
+        return "Baixa";
+      case 2: 
+        return "Média";
+      case 3: 
+        return "Alta";
+      default: 
+        return "Prioridade inválida";
+    } 
+  } 
 
   public int compareTo(Object b) {
     return this.getID() - ((Tarefa) b).getID();
