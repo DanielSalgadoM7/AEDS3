@@ -155,11 +155,6 @@ public class MenuTarefas {
       System.out.println("3) Listar todas as Tarefas");
       System.out.println("4) Alterar Tarefa");
       System.out.println("5) Excluir Tarefa");
-      System.out.println("6) Incluir Rotulo a uma Tarefa");
-      System.out.println("7) Buscar Tarefa por Rotulo");
-      System.out.println("8) Listar todos os Rotulos");
-      System.out.println("9) Alterar Rotulo");
-      System.out.println("10) Excluir Rotulo");
       System.out.println("\n0) Retornar ao menu anterior");
 
       System.out.print("\nOpção: ");
@@ -185,21 +180,6 @@ public class MenuTarefas {
           break;
         case 5:
           excluirTarefa();
-          break;
-        case 6:
-          incluirRotulo(arqRotulos, arqTarefas);
-          break;
-        case 7:
-          buscarTarefasPorRotulo(arqRotulos, arqTarefas);
-          break;
-        case 8:
-          listarRotulos(arqRotulos);
-          break;
-        case 9:
-          alterarRotulo(arqRotulos);
-          break;
-        case 10:
-          excluirRotulo(arqRotulos, arqTarefas);
           break;
         case 0:
           break;
@@ -727,7 +707,7 @@ public class MenuTarefas {
   }
 
   // ---------------------
-  // método de excluir a tarefa selecionada
+  // método de excluir rotulo
   // ---------------------
   public void excluirRotulo(ArquivoRotulos arqRotulos, ArquivoTarefas arqTarefas) {
     System.out.println("\n\n\nRótulos AEDS3");
