@@ -1,8 +1,5 @@
 package menus;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -14,7 +11,7 @@ import entidades.Categoria;
 import entidades.Rotulo;
 import entidades.Tarefa;
 
-public class teste // MenuRotulos
+public class MenuRotulos // MenuRotulos
 {
 
   Scanner console = new Scanner(System.in, "UTF-8");
@@ -23,7 +20,7 @@ public class teste // MenuRotulos
   private ArquivoCategorias arqCategorias;
   private ListaInvertida lista;
 
-  public teste() {
+  public MenuRotulos() {
     try {
       arqRotulos = new ArquivoRotulos();
       arqTarefas = new ArquivoTarefas();
@@ -362,7 +359,7 @@ switch (opcao) {
 
 
   // ---------------------
-  // método de excluir a tarefa selecionada
+  // método de excluir o rotulo
   // ---------------------
   public void excluirRotulo(ArquivoRotulos arqRotulos, ArquivoTarefas arqTarefas) {
     System.out.println("\n\n\nRótulos AEDS3");
