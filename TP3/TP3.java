@@ -9,10 +9,10 @@ import arquivos.ArquivoTarefas;
 import entidades.Categoria;
 import entidades.Tarefa;
 import menus.MenuCategorias;
+import menus.MenuRotulos;
 import menus.MenuTarefas;
 import arquivos.ArquivoRotulos;
 import entidades.Rotulo;
-
 
 public class TP3 {
 
@@ -29,8 +29,8 @@ public class TP3 {
         System.out.println("\n> Início");
         System.out.println("\n1) Tarefas");
         System.out.println("\n2) Categorias");
-      //  System.out.println("\n3) Rotulos");
-        System.out.println("\n11) Limpar o Banco de Dados");
+        System.out.println("\n3) Rotulos");
+        System.out.println("\n8) Limpar o Banco de Dados");
         System.out.println("\n0) Sair");
 
         System.out.print("\nOpção: ");
@@ -47,12 +47,10 @@ public class TP3 {
           case 2:
             (new MenuCategorias()).menu();
             break;
-          /*
-           * case 3:
-           * (new MenuRotulos()).menu();
-           * break;
-           */
-          case 11:
+          case 3:
+            (new MenuRotulos()).menu();
+            break;
+          case 8:
             limparDados();
             break;
           case 0:
