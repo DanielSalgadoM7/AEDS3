@@ -12,7 +12,7 @@ MenuRotulos -
 
 É necessário excluir cada caminho de dados, e assim que o código começar, utilizar da opção 8("Limpar caminho de dados") para carregar as estruturas de categorias normalmente.
 
-O índice invertido com os termos das tarefas foi criado usando a classe ListaInvertida? -> Sim
+O índice invertido com os termos das tarefas foi criado usando a classe ListaInvertida? -> Sim 
 O CRUD de rótulos foi implementado? -> Sim
 No arquivo de tarefas, os rótulos são incluídos, alterados e excluídos em uma árvore B+? -> +//-
 É possível buscar tarefas por palavras usando o índice invertido? -> Não 
